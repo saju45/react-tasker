@@ -17,21 +17,41 @@ export default function TaskBoard() {
   };
   const [tasks, setTasks] = useState([defaultTask]);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [taskToUpdate, setTaskToUpdate] = useState(null);
 
-  const handleAddClick = (data) => {
-    setTasks([...tasks, data]);
-    console.log(data);
+  const handleAddEditTask = (newTask, isAdd) => {
+    if (isAdd) {
+      setTasks([...tasks, newTask]);
+    } else {
+      setTasks(
+        tasks.map((task) => {
+          if (task.id === newTask.id) {
+            return newTask;
+          }
+          return task;
+        })
+      );
+    }
+    console.log(newTask);
     setShowAddModal(false);
+  };
+
+  const handleEditTask = (editTask) => {
+    setTaskToUpdate(editTask);
+    setShowAddModal(true);
   };
 
   return (
     <section className="mb-20" id="tasks">
-      {showAddModal && <AddTaskModal onSave={handleAddClick} />}
+      {showAddModal && (
+        <AddTaskModal onSave={handleAddEditTask} onUpdate={taskToUpdate} />
+      )}
+
       <div className="container">
         <Search />
         <div className="rounded-xl border border-[rgba(206,206,206,0.12)] bg-[#1D212B] px-6 py-8 md:px-9 md:py-16">
           <TaskAction onAddClick={() => setShowAddModal(true)} />
-          <TaskList tasks={tasks} />
+          <TaskList tasks={tasks} onEdit={handleEditTask} />
         </div>
       </div>
     </section>
