@@ -41,17 +41,35 @@ export default function TaskBoard() {
     setShowAddModal(true);
   };
 
+  const handleClose = () => {
+    setTaskToUpdate(null);
+    setShowAddModal(false);
+  };
+
+  const handleDelete = (taskId) => {
+    const taskAfterDelete = tasks.filter((task) => task.id != taskId);
+    setTasks(taskAfterDelete);
+  };
+
   return (
     <section className="mb-20" id="tasks">
       {showAddModal && (
-        <AddTaskModal onSave={handleAddEditTask} onUpdate={taskToUpdate} />
+        <AddTaskModal
+          onSave={handleAddEditTask}
+          onUpdate={taskToUpdate}
+          onCloseClick={handleClose}
+        />
       )}
 
       <div className="container">
         <Search />
         <div className="rounded-xl border border-[rgba(206,206,206,0.12)] bg-[#1D212B] px-6 py-8 md:px-9 md:py-16">
           <TaskAction onAddClick={() => setShowAddModal(true)} />
-          <TaskList tasks={tasks} onEdit={handleEditTask} />
+          <TaskList
+            tasks={tasks}
+            onEdit={handleEditTask}
+            onDelete={handleDelete}
+          />
         </div>
       </div>
     </section>

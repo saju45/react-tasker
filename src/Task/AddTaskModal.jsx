@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 /* eslint-disable react/prop-types */
-export default function AddTaskModal({ onSave, onUpdate }) {
+export default function AddTaskModal({ onSave, onUpdate, onCloseClick }) {
   const [task, setTask] = useState(
     onUpdate || {
       title: "",
@@ -94,6 +94,13 @@ export default function AddTaskModal({ onSave, onUpdate }) {
           </div>
         </div>
         <div className="mt-16 flex justify-center lg:mt-20">
+          <button
+            className="rounded bg-red-600 px-4 py-2 text-white transition-all hover:opacity-80 mr-6"
+            onClick={onCloseClick}
+          >
+            Cancel
+          </button>
+
           <button
             type="submit"
             className="rounded bg-blue-600 px-4 py-2 text-white transition-all hover:opacity-80"
