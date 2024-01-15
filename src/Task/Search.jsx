@@ -1,4 +1,18 @@
-export default function Search() {
+/* eslint-disable react/prop-types */
+import { useState } from "react";
+
+export default function Search({ onSearch }) {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleClick = (event) => {
+    event.preventDefault();
+    onSearch(searchTerm);
+  };
+
   return (
     <div className="p-2 flex justify-end">
       <form>
@@ -9,11 +23,14 @@ export default function Search() {
               id="search-dropdown"
               className="z-20 block w-full bg-gray-800 px-4 py-2 pr-10 focus:outline-none"
               placeholder="Search Task"
+              value={searchTerm}
+              onChange={handleChange}
               required
             />
             <button
               type="submit"
               className="absolute right-2 top-0 h-full rounded-e-lg text-white md:right-4"
+              onClick={handleClick}
             >
               <svg
                 className="h-4 w-4"
