@@ -51,6 +51,11 @@ export default function TaskBoard() {
     setTasks(taskAfterDelete);
   };
 
+  const handleAllDelete = () => {
+    tasks.length = 0;
+    setTasks([...tasks]);
+  };
+
   return (
     <section className="mb-20" id="tasks">
       {showAddModal && (
@@ -64,7 +69,10 @@ export default function TaskBoard() {
       <div className="container">
         <Search />
         <div className="rounded-xl border border-[rgba(206,206,206,0.12)] bg-[#1D212B] px-6 py-8 md:px-9 md:py-16">
-          <TaskAction onAddClick={() => setShowAddModal(true)} />
+          <TaskAction
+            onAddClick={() => setShowAddModal(true)}
+            onAllDelete={handleAllDelete}
+          />
           <TaskList
             tasks={tasks}
             onEdit={handleEditTask}

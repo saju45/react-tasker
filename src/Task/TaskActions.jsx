@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-export default function TaskAction({ onAddClick }) {
+export default function TaskAction({ onAddClick, onAllDelete }) {
   const handleAddTask = () => {
     onAddClick();
   };
@@ -13,7 +13,10 @@ export default function TaskAction({ onAddClick }) {
         >
           Add Task
         </button>
-        <button className="rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold">
+        <button
+          className="rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold"
+          onClick={onAllDelete}
+        >
           Delete All
         </button>
       </div>
